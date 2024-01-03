@@ -1,0 +1,11 @@
+<mat-autocomplete (optionSelected)="onDisplaySearchForm($event)">
+    <mat-option *ngFor="let name of nameEvent" [value]="name">
+      {{ name }}
+    </mat-option>
+  </mat-autocomplete>
+  
+  <!-- Muestra la opción seleccionada en el DOM -->
+  <div *ngIf="eventSelected">
+    Nombre seleccionado: {{ eventSelected }}
+  </div>
+  
