@@ -1,23 +1,27 @@
+<div id="container">
+  <div id="contenedor">
 @switch (stepperOrientation | async) {
   @case ('horizontal') {
-    <div>Make your screen smaller to see a vertical stepper</div>
+    <div><img  width="20%" src="https://www.connect.amcham.com.ar/wp-content/uploads/2021/11/logo_AmChamConnect.svg" alt="AmCham Connect Logo"></div>
   }
   @case ('vertical') {
-    <div>Make your screen larger to see a horizontal stepper</div>
+    <div><img src="https://www.connect.amcham.com.ar/wp-content/uploads/2021/11/logo_AmChamConnect.svg" alt="AmCham Connect Logo"></div>
   }
 }
-<div id = "container">
+
 <mat-stepper
   class="example-stepper"
   [orientation]="(stepperOrientation | async)!">
-  <mat-step [stepControl]="searchEventFormGroup" label="Fill out your name">
-    <form [formGroup]="searchEventFormGroup">
-
-      <mat-form-field class="example-full-width">
-        <mat-label>Number</mat-label>
-        <input type="text"
-               placeholder="Pick one"
-               aria-label="Number"
+  <mat-step [stepControl]="searchEventFormGroup" label="Cargar evento">
+    <form  [formGroup]="searchEventFormGroup">
+      <div><img width="25%" src="https://amcham.com.ar/wp-content/uploads/2023/11/Amchy_Gesto_Ci▌urculo_Transparencia_1080x1080.gif" alt="" srcset=""><h1>
+        ¿Sobre que evento querés trabajar?
+      </h1></div>     
+      <mat-form-field  class="example-full-width">
+        <mat-label >Evento</mat-label>
+        <input id="campo" type="text"
+               placeholder="Nombre del evento"
+               aria-label="Nombre del evento"
                matInput
                formControlName="name"
                [matAutocomplete]="auto">
@@ -27,42 +31,47 @@
           }
         </mat-autocomplete>
       </mat-form-field>
-      <div>
-        <button mat-button matStepperNext>Next</button>
+      <div class="botonDown">
+        <button class="botones" mat-button matStepperNext>Siguiente</button>
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
-    <form [formGroup]="secondFormGroup">
-      <mat-form-field>
-        <mat-label>Address</mat-label>
-        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-               required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="thirdFormGroup" label="Fill out your phone number">
+<!-- ... (código previo) ... -->
+
+<mat-step [stepControl]="secondFormGroup" label="Importar archivo">
+  <form [formGroup]="secondFormGroup">
+    <mat-form-field>
+      <mat-label>Address</mat-label>
+      <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
+    </mat-form-field>
+    <div>
+      <button mat-button matStepperPrevious>Atrás</button>
+      <button mat-button matStepperNext>Siguiente</button> <!-- Corregido el cierre de la etiqueta -->
+    </div>
+  </form>
+</mat-step>
+
+<!-- ... (código posterior) ... -->
+
+  <mat-step [stepControl]="thirdFormGroup" label="Asistentes">
     <form [formGroup]="thirdFormGroup">
       <mat-form-field>
         <mat-label>Phone number</mat-label>
         <input matInput formControlName="thirdCtrl" placeholder="Ex. 12345678" required>
       </mat-form-field>
       <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+        <button mat-button matStepperPrevious>Atrás</button>
+        <button mat-button matStepperNext>Siguiente</button>
       </div>
     </form>
   </mat-step>
   <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
-    <p>You are now done.</p>
+    <ng-template matStepLabel>Correcciones</ng-template>
+    <p>Gracias.</p>
     <div>
-      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperPrevious>Atrás</button>
     </div>
   </mat-step>
 </mat-stepper>
+</div>
 </div>
