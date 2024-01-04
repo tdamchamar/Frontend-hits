@@ -49,8 +49,8 @@ export class AppComponent {
     thirdCtrl: ['', Validators.required],
   });
   stepperOrientation: Observable<StepperOrientation>;
-  events: string[] = [];
-  filteredEvents: Observable<string[]> = of([]);
+  events: IEvent[] = [];
+  filteredEvents: Observable<IEvent[]> = of([]);
 
 
 
@@ -60,7 +60,7 @@ export class AppComponent {
     private eventsService: EventsService
   ) {
     this.eventsService.getEvents().subscribe((events: IEvent[]) => {
-      this.events = events.map((event: IEvent) => event.name);
+      this.events = events;
     })
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 800px)')
@@ -76,10 +76,10 @@ export class AppComponent {
     );
   }
 
-  private _filter(value: string): string[] {
+  private _filter(value: string): IEvent[] {
     const filterValue = value.toLowerCase();
 
-    return this.events.filter(option => option.toLowerCase().includes(filterValue));
+    return this.events.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 
 }
