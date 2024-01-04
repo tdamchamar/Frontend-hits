@@ -10,6 +10,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {AsyncPipe, CommonModule} from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { EventsService } from './core/services/events/events.service';
+import { IEvent } from './core/services/events/events.interface';
 
 
 /**
@@ -29,9 +31,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatAutocompleteModule,
     MatInputModule,
     MatButtonModule,
-    AsyncPipe],
-
-
+    AsyncPipe,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -48,7 +49,7 @@ export class AppComponent {
     thirdCtrl: ['', Validators.required],
   });
   stepperOrientation: Observable<StepperOrientation>;
-  events: string[] = ['One', 'Two', 'Three'];
+  events: string[] = [];
   filteredEvents: Observable<string[]> = of([]);
 
 
@@ -56,7 +57,11 @@ export class AppComponent {
   constructor(
     private _formBuilder: FormBuilder,
     breakpointObserver: BreakpointObserver,
+    private eventsService: EventsService
   ) {
+    this.eventsService.getEvents().subscribe((events: IEvent[]) => {
+      this.events = events.map((event: IEvent) => event.name);
+    })
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 800px)')
       .pipe(map(({matches}) => (matches ? 'horizontal' : 'vertical')));
