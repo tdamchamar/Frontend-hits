@@ -8,12 +8,19 @@ import { IEvent } from './events.interface';
   providedIn: 'root',
 })
 export class EventsService {
-  private path = environment.apiPaths.events;
+  private eventsPath = environment.apiPaths.events;
+  private S3UrlPath = environment.apiPaths.getS3Url;
   constructor(protected httpService: HttpService) {}
 
 
   public getEvents(): Observable<IEvent[]> {
-    return this.httpService.get<IEvent[]>(`${this.path}`);
+    return this.httpService.get<IEvent[]>(`${this.eventsPath}`);
   }
+
+  public getS3UrlPath(filename: string, campaignid:string): Observable<any> {
+    return this.httpService.get<any>(`${this.S3UrlPath}?filename=${filename}&campaignid=${campaignid}`);
+  }
+
+
 
 }

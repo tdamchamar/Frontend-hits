@@ -26,27 +26,33 @@
                formControlName="name"
                [matAutocomplete]="auto">
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-          @for (option of filteredEvents | async; track option) {
-            <mat-option [value]="option">{{option.name}}</mat-option>
+          @for (option of filteredEvents | async; track option.campaignid) {
+            <mat-option [value]="option.campaignid">{{option.name}}</mat-option>
           }
         </mat-autocomplete>
       </mat-form-field>
       <div class="botonDown">
-        <button class="botones" mat-button matStepperNext>Siguiente</button>
+        <button class="botones" mat-button matStepperNext type="submit">Siguiente</button>
       </div>
     </form>
   </mat-step>
 <!-- ... (código previo) ... -->
 
-<mat-step [stepControl]="secondFormGroup" label="Importar archivo">
-  <form [formGroup]="secondFormGroup">
+<mat-step [stepControl]="uploadFileFormGroup" label="Importar archivo">
+  <form [formGroup]="uploadFileFormGroup" (ngSubmit)="getS3Url()">
     <mat-form-field>
-      <mat-label>Address</mat-label>
-      <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
+      <div (click)="openFileInput()">
+      <mat-label>Archivo</mat-label>
+      <input type="file"
+      (change)="onFileChange($event)"
+      style="display:none">
+      <input matInput formControlName="filename"
+      [value]="getFileName()" readonly>
+    </div>
     </mat-form-field>
     <div>
       <button mat-button matStepperPrevious>Atrás</button>
-      <button mat-button matStepperNext>Siguiente</button> <!-- Corregido el cierre de la etiqueta -->
+      <button mat-button matStepperNext type="submit">Siguiente</button> <!-- Corregido el cierre de la etiqueta -->
     </div>
   </form>
 </mat-step>

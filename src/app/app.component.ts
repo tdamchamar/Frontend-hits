@@ -42,8 +42,8 @@ export class AppComponent {
   searchEventFormGroup = this._formBuilder.group({
     name: ['', Validators.required],
   });
-  secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
+  uploadFileFormGroup = this._formBuilder.group({
+    filename: [null, Validators.required],
   });
   thirdFormGroup = this._formBuilder.group({
     thirdCtrl: ['', Validators.required],
@@ -82,4 +82,25 @@ export class AppComponent {
     return this.events.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 
+  onFileChange($event: Event) {
+    const target = $event?.target as HTMLInputElement;
+    this.uploadFileFormGroup.patchValue({filename: target?.files?.[0] as any});
+  }
+
+  getFileName() {
+    return (this.uploadFileFormGroup.get('filename')?.value as any)?.name;
+  }
+  openFileInput() {
+    const fileInput = document.querySelector('input[type=file]') as HTMLInputElement;
+    fileInput?.click();
+  }
+
+  getS3Url() {
+    const filename = (this.uploadFileFormGroup.controls.filename.value as any)?.name;
+    const campaignid = this.searchEventFormGroup.controls.name.value || '';
+    this.eventsService.getS3UrlPath(filename, campaignid).subscribe((res) => {
+      debugger;
+    });
+    return true;
+  }
 }
