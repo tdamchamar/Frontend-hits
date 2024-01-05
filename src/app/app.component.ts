@@ -99,8 +99,13 @@ export class AppComponent {
     const filename = (this.uploadFileFormGroup.controls.filename.value as any)?.name;
     const campaignid = this.searchEventFormGroup.controls.name.value || '';
     this.eventsService.getS3UrlPath(filename, campaignid).subscribe((res) => {
-      debugger;
+      const formData = new FormData();
+      formData.append('filename', this.uploadFileFormGroup.controls.filename?.value as unknown as Blob);
+      this.eventsService.uploadFile(formData, res).subscribe((res) => {
+        console.log(res);
+      });
     });
+
     return true;
   }
 }

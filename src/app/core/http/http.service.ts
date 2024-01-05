@@ -61,6 +61,7 @@ export class HttpService {
 
 
   public put<T>(url: string, body?: object): Observable<T> {
+    this.headers = new HttpHeaders();
     return this.http.put<T>(url, body);
   }
 

@@ -21,6 +21,10 @@ export class EventsService {
     return this.httpService.get<any>(`${this.S3UrlPath}?filename=${filename}&campaignid=${campaignid}`);
   }
 
+  public uploadFile(file: FormData, url: string): Observable<any> {
+    return this.httpService.put<any>(`${url}`, file);
+  }
+
 
 
 }
