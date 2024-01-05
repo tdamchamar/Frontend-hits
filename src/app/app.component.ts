@@ -101,9 +101,21 @@ export class AppComponent {
     this.eventsService.getS3UrlPath(filename, campaignid).subscribe((res) => {
       const formData = new FormData();
       formData.append('filename', this.uploadFileFormGroup.controls.filename?.value as unknown as Blob);
-      this.eventsService.uploadFile(formData, res).subscribe((res) => {
+      this.eventsService.uploadFile(formData, res).subscribe({
+        next: (res) => {
         console.log(res);
-      });
+        console.log('para probar el endpoint envio los mismos datos que obtuve del get');
+        this.eventsService.publishChanges(res).subscribe({
+          next: (res) => {
+            console.log(res);
+          },
+          error: (err) => {
+          },
+        })
+      },
+      error: (err) => {
+      },
+    });
     });
 
     return true;

@@ -10,6 +10,7 @@ import { IEvent } from './events.interface';
 export class EventsService {
   private eventsPath = environment.apiPaths.events;
   private S3UrlPath = environment.apiPaths.getS3Url;
+  private publishChangesPath = environment.apiPaths.publishChanges;
   constructor(protected httpService: HttpService) {}
 
 
@@ -25,6 +26,9 @@ export class EventsService {
     return this.httpService.put<any>(`${url}`, file);
   }
 
+  public publishChanges(json: any): Observable<any> {
+    return this.httpService.post<any>(`${this.publishChangesPath}`, json);
+  }
 
 
 }
