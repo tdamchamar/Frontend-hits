@@ -100,16 +100,24 @@ export class AppComponent {
     const campaignid = this.searchEventFormGroup.controls.name.value || '';
     this.eventsService.getS3UrlPath(filename, campaignid).subscribe((res) => {
       const formData = new FormData();
-      formData.append('filename', this.uploadFileFormGroup.controls.filename?.value as unknown as Blob);
-      this.eventsService.uploadFile(formData, res).subscribe({
+      debugger;
+      formData.append('key', res.fields.key);
+      formData.append('AWSAccessKeyId', res.fields.AWSAccessKeyId);
+      formData.append('policy', res.fields.policy);
+      formData.append('signature', res.fields.signature);
+      formData.append('x-amz-security-token', res.fields['x-amz-security-token']);
+      formData.append('file', this.uploadFileFormGroup.controls.filename?.value as unknown as Blob);
+
+      this.eventsService.uploadFile(formData, res.url).subscribe({
         next: (res) => {
         console.log(res);
         console.log('para probar el endpoint envio los mismos datos que obtuve del get');
-        this.eventsService.publishChanges(res).subscribe({
+        this.eventsService.checkFileStatus('coincidencias').subscribe({
           next: (res) => {
             console.log(res);
           },
           error: (err) => {
+            console.log(err);
           },
         })
       },
