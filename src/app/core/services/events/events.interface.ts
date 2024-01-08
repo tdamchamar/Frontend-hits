@@ -6,3 +6,4 @@ export interface IEvent {
   proposedstart: string
   proposedend: string
 }
+

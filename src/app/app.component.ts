@@ -16,6 +16,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {PageEvent } from '@angular/material/paginator';
+import { MatTabsModule } from '@angular/material/tabs'; // Importa el módulo de pestañas
 
 
 /**
@@ -36,8 +37,6 @@ export interface PeriodicElement {
 
 const ELEMENT_DATA: PeriodicElement[] = [];
 
-
-
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -54,7 +53,8 @@ const ELEMENT_DATA: PeriodicElement[] = [];
     AsyncPipe,
     MatTableModule,
     MatPaginatorModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTabsModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
@@ -62,10 +62,13 @@ const ELEMENT_DATA: PeriodicElement[] = [];
 
 export class AppComponent {
 
-  dataSource: PeriodicElement[] = [];
+  coincidenciasSource: PeriodicElement[] = []; // Fuente de datos para las coincidencias
+  dataSource: PeriodicElement[] = []; //no coincidencias
   isLoadingTable = true;
   totalItems: number = 10;  // Ajusta esto según tus necesidades
   itemsPorPagina: number = 10; // Ajusta esto según tus necesidades
+
+  //Esto es para el paginador
   @ViewChild(MatPaginator) paginator!: MatPaginator; // Coloca esto dentro de la clase
   cambiarPagina(evento: PageEvent) {
     // Actualiza la página actual y el tamaño de página
@@ -113,6 +116,7 @@ export class AppComponent {
       startWith(''),
       map(value => this._filter(value || '')),
     );
+
   }
 
   private _filter(value: string): IEvent[] {
@@ -179,7 +183,4 @@ export class AppComponent {
   
   displayedColumns: string[] = ['firstname', 'lastname', 'email', 'account', 'jobtitle', 'fase', 'CRM match'];
  
-  
   }
-  
- 
