@@ -2,7 +2,7 @@
   <div id="contenedor">
 @switch (stepperOrientation | async) {
   @case ('horizontal') {
-    <div><img  width="20%" src="https://www.connect.amcham.com.ar/wp-content/uploads/2021/11/logo_AmChamConnect.svg" alt="AmCham Connect Logo"></div>
+    <div><img  class="img" src="https://www.connect.amcham.com.ar/wp-content/uploads/2021/11/logo_AmChamConnect.svg" alt="AmCham Connect Logo"></div>
   }
   @case ('vertical') {
     <div><img src="https://www.connect.amcham.com.ar/wp-content/uploads/2021/11/logo_AmChamConnect.svg" alt="AmCham Connect Logo"></div>
@@ -69,7 +69,7 @@
         <button mat-button matStepperPrevious>Atrás</button>
         <button mat-button matStepperNext>Siguiente</button>
       </div>-->
-      <mat-tab-group>
+      <mat-tab-group class="mat-tab-group">
         <mat-tab label="COINCIDENCIAS">
           <div>
              <mat-spinner id="mat-spinner" *ngIf="isLoadingTable"></mat-spinner> <!-- Se muestra solo si isLoadingTable es true -->
