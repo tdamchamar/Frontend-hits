@@ -6,6 +6,10 @@
 
 }
 
+#mat-spinner{text-align: center !important;}
+table{
+    max-height: 100%;
+}
 h1{margin-top: -30px;}
 .example-full-width {
     width: 35%;
