@@ -168,6 +168,19 @@ export class AppComponent {
             console.log(err);
             this.isLoadingTable = false;
           },
+        });
+        this.eventsService.checkFileStatus('no_coincidencias').subscribe({
+          next: (res) => {
+            console.log(res);
+            const parsedJson = JSON.parse(res);
+            console.log(parsedJson.valorDeseado);
+            this.coincidenciasSource = parsedJson.results;
+            this.isLoadingTable = false;
+          },
+          error: (err) => {
+            console.log(err);
+            this.isLoadingTable = false;
+          },
         })
       },
       error: (err) => {
@@ -177,10 +190,8 @@ export class AppComponent {
 
     return true;
 
-    
+
   }
-  
-  
-  displayedColumns: string[] = ['firstname', 'lastname', 'email', 'account', 'jobtitle', 'fase', 'CRM match'];
+    displayedColumns: string[] = ['firstname', 'lastname', 'email', 'account', 'jobtitle', 'fase', 'CRM match'];
  
   }
