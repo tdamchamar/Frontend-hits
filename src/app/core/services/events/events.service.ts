@@ -17,8 +17,8 @@ export class EventsService {
     return this.httpService.get<IEvent[]>(`${this.baseUrl}/events`);
   }
 
-  public getS3UrlPath(filename: string, campaignid:string): Observable<CreatePresignedUrlResponse> {
-    return this.httpService.get<CreatePresignedUrlResponse>(`${this.baseUrl}/create_presigned_url?filename=${filename}&campaignid=${campaignid}`);
+  public getS3UrlPath(filename: string, campaignid:string, timestamp: number): Observable<CreatePresignedUrlResponse> {
+    return this.httpService.get<CreatePresignedUrlResponse>(`${this.baseUrl}/create_presigned_url?filename=${filename}&campaignid=${campaignid}&timestamp=${timestamp}`);
   }
 
   public uploadFile(formData: FormData, url: string): Observable<any> {

@@ -74,11 +74,11 @@ export class AppComponent {
     // Actualiza la página actual y el tamaño de página
     const paginaActual = evento.pageIndex;
     const tamañoPagina = evento.pageSize;
-  
+
     // Aquí debes implementar la lógica para obtener los datos de la nueva página.
     // Esto puede implicar solicitar nuevos datos a un servicio con los parámetros actualizados.
   }
-  
+
 
   public eventsArray: string[] = [''];
   searchEventFormGroup = this._formBuilder.group({
@@ -140,8 +140,8 @@ export class AppComponent {
 
   getS3Url() {
     const filename = (this.uploadFileFormGroup.controls.filename.value as any)?.name;
-    const campaignid = this.searchEventFormGroup.controls.name.value || '';
-    this.eventsService.getS3UrlPath(filename, campaignid).subscribe((res) => {
+    const campaignid = this.events.filter((item) => item.name === this.searchEventFormGroup.controls.name.value)[0].campaignid;
+    this.eventsService.getS3UrlPath(filename, campaignid, 3).subscribe((res) => {
       const formData = new FormData();
 
       formData.append('key', res.fields.key);
@@ -154,7 +154,10 @@ export class AppComponent {
       this.eventsService.uploadFile(formData, res.url).subscribe({
         next: (res) => {
         console.log(res);
+          //aca lo que falta es esperar 5 segundos
+          setTimeout(() => {
 
+          }, 5000);
         console.log('para probar el endpoint envio los mismos datos que obtuve del get');
         this.eventsService.checkFileStatus('coincidencias').subscribe({
           next: (res) => {
@@ -193,5 +196,5 @@ export class AppComponent {
 
   }
     displayedColumns: string[] = ['firstname', 'lastname', 'email', 'account', 'jobtitle', 'fase', 'CRM match'];
- 
+
   }

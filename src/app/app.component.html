@@ -27,7 +27,7 @@
                [matAutocomplete]="auto">
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
           @for (option of filteredEvents | async; track option.campaignid) {
-            <mat-option [value]="option.campaignid">{{option.name}}</mat-option>
+            <mat-option [value]="option.name">{{option.name}}</mat-option>
           }
         </mat-autocomplete>
       </mat-form-field>
@@ -124,7 +124,7 @@
   <th mat-header-cell *matHeaderCellDef> CRM Match </th>
   <td mat-cell *matCellDef="let element"> {{element['CRM match']}} </td>
 </ng-container>
-  
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
@@ -134,7 +134,7 @@
         <mat-tab label="NO COINCIDENCIAS">
           <div>
             <table mat-table [dataSource]="coincidenciasSource" class="mat-elevation-z8">
-              
+
         <mat-paginator [length]="totalItems"
         [pageSize]="itemsPorPagina"
         [pageSizeOptions]="[5, 10, 25, 100]"
@@ -195,7 +195,7 @@
       <div class="botonDown">
         <button class="botones" mat-button matStepperNext type="submit">Siguiente</button>
       </div>
-    
+
       <mat-step>
         <ng-template matStepLabel>Correcciones</ng-template>
         <p>Gracias.</p>
@@ -205,6 +205,6 @@
       </mat-step>
     </form>
   </mat-step>
-  
+
 </mat-stepper>
 </div>
